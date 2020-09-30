@@ -37,24 +37,29 @@ def getClasses():
 
     return(links)
 
+def checkConfig():
+
+    links = []
+
+    # Check if there is a config file already, if not, set one up
+    if path.exists("config.txt"):
+        with open("config.txt", "r") as fr:
+            for line in fr:
+                current = line[:-1]  
+                links.append([i for i in list(current.split("\t")) if i])
+    else:
+        links = getClasses()
+        with open("config.txt", "w") as fw:
+            for link in links:
+                for kv in link:
+                    fw.write('%s\t' % kv)
+                fw.write('\n')
+
+    return(links)
 
 ### MAIN ###
 
-links = []
-
-# Check if there is a config file already, if not, set one up
-if path.exists("config.txt"):
-     with open("config.txt", "r") as fr:
-         for line in fr:
-            current = line[:-1]  
-            links.append([i for i in list(current.split("\t")) if i])
-else:
-    links = getClasses()
-    with open("config.txt", "w") as fw:
-        for link in links:
-            for kv in link:
-                fw.write('%s\t' % kv)
-            fw.write('\n')
+links = checkConfig()
 
 # Start up the GUI
 root = tk.Tk()
