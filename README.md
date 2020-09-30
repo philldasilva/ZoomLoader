@@ -8,7 +8,7 @@ Zoomloader is a simple Python-based GUI program to launch repeated Zoom meetings
 
 Open a terminal in the folder containing ZoomLoader.pyw and type
 ```
-python3 ./ZoomLoader.py
+python3 ./ZoomLoader.pyw
 ```
 And follow the instructions to add classes.
 
