@@ -1,4 +1,5 @@
 import subprocess
+from os import path
 import tkinter as tk
 
 FIREFOX = "C:/Program Files/Mozilla Firefox/firefox"
@@ -23,13 +24,6 @@ class Button:
         def gotoLink(link):
             subprocess.call([FIREFOX, link])
 
-        """# Creating new buttons
-        n = len(LINKS)
-        j = 0
-        for i in range(n):
-            e = button(self, text=list(LINKS.keys())[i], command=lambda : gotoLink(list(LINKS.values())[i]))
-            e.grid(row=i, column=j)"""
-
         
 def getClasses():
     numClasses = int(input("Enter number of classes to add: "))
@@ -37,8 +31,8 @@ def getClasses():
     links = []
 
     for i in range(numClasses):
-        name = input("Enter name for class " + str(i) + ": ")
-        link = input("Enter link for class " + str(i) + ": ")
+        name = input("Enter name for class " + str(i+1) + ": ")
+        link = input("Enter link for class " + str(i+1) + ": ")
         links.append([name, link])
 
     return(links)
@@ -46,9 +40,21 @@ def getClasses():
 
 ### MAIN ###
 
-# Need to set up the GUI here...
+links = []
 
-links = getClasses()
+# Check if there is a config file already, if not, set one up
+if path.exists("config.txt"):
+     with open("config.txt", "r") as fr:
+         for line in fr:
+            current = line[:-1]  
+            links.append([i for i in list(current.split("\t")) if i])
+else:
+    links = getClasses()
+    with open("config.txt", "w") as fw:
+        for link in links:
+            for kv in link:
+                fw.write('%s\t' % kv)
+            fw.write('\n')
 
 # Start up the GUI
 root = tk.Tk()
