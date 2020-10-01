@@ -15,3 +15,5 @@ And follow the instructions to add classes.
 ### Continual Usage
 
 After you set it up initially, just double click on ZoomLoader.pyw to open without any terminal.
+
+If the program doesn't initally open, try "Open with" -> Python, instead of Python (Windowed)
